@@ -1,0 +1,31 @@
+
+services:
+  backend:
+    build:
+      context: ./ecom-project
+      dockerfile: Dockerfile
+    image: jewellery-backend:day1
+    container_name: backend
+    restart: always
+    networks:
+      - existing-network
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "8085:8085"
+
+  frontend:
+    image: aakash2302/jewellery-ui:v2
+    container_name: frontend
+    restart: always
+    networks:
+      - existing-network
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
+networks:
+  existing-network:
+    external: true
+    name: docker_default
