@@ -12,7 +12,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from "react";
    DELETE /api/products/{id}      → delete
 ═══════════════════════════════════════════════════════════════════════════ */
 
-const BASE = "http://localhost:8085/api";
+const BASE = "/api";
 
 const api = {
   getAll: () =>
