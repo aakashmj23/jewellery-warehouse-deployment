@@ -1,0 +1,30 @@
+
+name: Jewellery Warehouse CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  project-check:
+    name: Basic project validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Display runner information
+        run: |
+          echo "GitHub Actions runner is working"
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch: $GITHUB_REF_NAME"
+
+      - name: Check project files
+        run: |
+          test -f docker-compose.yml
+          test -f ecom-project/pom.xml
+          test -f jewellery-ui/package.json
+          echo "Required project files found"
