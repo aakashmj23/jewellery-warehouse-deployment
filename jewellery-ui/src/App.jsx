@@ -436,16 +436,23 @@ function SkeletonGrid() {
 }
 
 // Product image — fetches from /api/products/{id}/image
+// Product image — fetches from /api/products/{id}/image
+// Product image — fetches from /api/products/{id}/image
 function ProductImage({ id, name, style, className }) {
-  const [src, setSrc] = useState(null);
-  const [err, setErr] = useState(false);
-  useEffect(() => {
-    if (!id) return;
-    setSrc(api.imageUrl(id));
-    setErr(false);
-  }, [id]);
-  if (!src || err) return null;
-  return <img src={src} alt={name||""} style={style} className={className} onError={() => setErr(true)}/>;
+  const [failedId, setFailedId] = useState(null);
+  const src = id ? api.imageUrl(id) : null;
+
+  if (!src || failedId === id) return null;
+
+  return (
+    <img
+      src={src}
+      alt={name || ""}
+      style={style}
+      className={className}
+      onError={() => setFailedId(id)}
+    />
+  );
 }
 
 function ItemCard({ item, onClick }) {
@@ -837,7 +844,7 @@ function ItemForm({ initial, onSave, onCancel, toast }) {
 }
 
 /* ═══ UPDATE PAGE ═══════════════════════════════════════════════════════════ */
-function UpdatePage({ items, loading, error, reload, toast, onEditDirect }) {
+function UpdatePage({ items, loading, error, reload, toast }) {
   const [view,    setView]    = useState("icon");
   const [sort,    setSort]    = useState("id");
   const [search,  setSearch]  = useState("");
@@ -1011,7 +1018,7 @@ export default function App() {
   const [selected, setSelected] = useState(null);
   const [editItem, setEditItem] = useState(null);  // item to edit (from detail page)
   const { toast, ToastContainer } = useToast();
-  const { items, setItems, loading, error, apiStatus, reload } = useProducts();
+  const { items, loading, error, apiStatus, reload } = useProducts();
 
   const nav = (p) => { setPage(p); setSelected(null); setEditItem(null); };
 
