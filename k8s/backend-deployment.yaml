@@ -1,0 +1,31 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jewellery-backend
+  namespace: jewellery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jewellery-backend
+  template:
+    metadata:
+      labels:
+        app: jewellery-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/aakashmj23/jewellery-backend:latest
+          ports:
+            - name: http
+              containerPort: 8085
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: backend-config
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-db-secret
+                  key: MYSQL_ROOT_PASSWORD

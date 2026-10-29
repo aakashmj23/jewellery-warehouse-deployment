@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jewellery-frontend
+  namespace: jewellery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jewellery-frontend
+  template:
+    metadata:
+      labels:
+        app: jewellery-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/aakashmj23/jewellery-frontend:latest
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP

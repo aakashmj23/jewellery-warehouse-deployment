@@ -1,0 +1,14 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: jewellery
+spec:
+  type: ClusterIP
+  selector:
+    app: jewellery-backend
+  ports:
+    - name: http
+      port: 8085
+      targetPort: 8085
+      protocol: TCP

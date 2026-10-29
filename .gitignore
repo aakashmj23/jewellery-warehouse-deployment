@@ -1,21 +1,25 @@
-# Environment variables and secrets
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+**/tfplan
+**/tfplan-*
+crash.log
+crash.*.log
+
+# Secrets
 .env
 .env.*
 !.env.example
+*.tfvars
+*.tfvars.json
 
-# Java / Maven build output
+# Java and frontend build artifacts
 **/target/
-
-# Node.js dependencies and build output
 **/node_modules/
 **/dist/
 
-# IDE and operating system files
-.vscode/
-.idea/
-*.iml
-.DS_Store
-Thumbs.db
-
-# Logs
+# Local debug logs
+minikube-debug.log
 *.log
