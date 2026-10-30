@@ -13,6 +13,7 @@ spec:
       labels:
         app: jewellery-backend
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: backend
           image: ghcr.io/aakashmj23/jewellery-backend:latest
@@ -29,3 +30,18 @@ spec:
                 secretKeyRef:
                   name: backend-db-secret
                   key: MYSQL_ROOT_PASSWORD
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1001
+            capabilities:
+              drop:
+                - ALL
+                
